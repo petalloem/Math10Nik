@@ -1,0 +1,452 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math10Nik | Mathematics Learning Hub</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --blue: #bfe3f5;
+      --blue-light: #eaf6fc;
+      --pink: #f8d5e2;
+      --yellow: #ffe66d;
+      --navy: #344968;
+      --ivory: #fff9ed;
+      --white: #ffffff;
+      --green: #dce8d7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--ivory);
+      color: var(--navy);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .topbar {
+      padding: 18px 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: white;
+      border-bottom: 3px solid var(--blue);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .brand {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 17px;
+      color: var(--navy);
+    }
+
+    .brand span {
+      color: #579ac2;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .nav a:hover {
+      color: #579ac2;
+    }
+
+    .login-btn {
+      background: var(--yellow);
+      border: 2px solid var(--navy);
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-weight: 800;
+      box-shadow: 3px 3px 0 var(--navy);
+    }
+
+    .hero {
+      padding: 65px 7% 55px;
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      align-items: center;
+      gap: 30px;
+      background: var(--blue-light);
+      border-bottom: 4px dashed #9bc9e5;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: white;
+      padding: 8px 13px;
+      border: 2px solid var(--navy);
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 58px);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    h1 span {
+      color: #5798c1;
+    }
+
+    .hero-text {
+      font-size: 17px;
+      line-height: 1.8;
+      max-width: 570px;
+      margin-bottom: 25px;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      background: var(--navy);
+      color: white;
+      padding: 14px 23px;
+      border-radius: 12px;
+      font-weight: 900;
+      box-shadow: 4px 4px 0 #8ebdd9;
+    }
+
+    .hero-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .pixel-card {
+      background: white;
+      border: 3px solid var(--navy);
+      border-radius: 18px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 7px 7px 0 var(--blue);
+      max-width: 340px;
+      justify-self: center;
+      width: 100%;
+    }
+
+    .pixel-star {
+      font-size: 65px;
+      margin-bottom: 15px;
+    }
+
+    .pixel-card h3 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 12px;
+      line-height: 2;
+      margin-bottom: 10px;
+    }
+
+    .pixel-card p {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    section {
+      padding: 55px 7%;
+    }
+
+    .section-title {
+      font-size: 29px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .section-desc {
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      padding: 25px;
+      background: white;
+      border: 3px solid var(--navy);
+      border-radius: 16px;
+      box-shadow: 5px 5px 0 var(--blue);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card:nth-child(2) {
+      box-shadow: 5px 5px 0 var(--pink);
+    }
+
+    .card:nth-child(3) {
+      box-shadow: 5px 5px 0 var(--yellow);
+    }
+
+    .card-icon {
+      font-size: 36px;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      font-size: 19px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .mathlab {
+      background: var(--blue-light);
+      border-top: 3px dashed #9bc9e5;
+      border-bottom: 3px dashed #9bc9e5;
+    }
+
+    .lab-card {
+      background: white;
+      padding: 28px;
+      border: 3px solid var(--navy);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      box-shadow: 6px 6px 0 var(--pink);
+      flex-wrap: wrap;
+    }
+
+    .lab-card h3 {
+      font-size: 23px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .lab-card p {
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .coming-soon {
+      display: inline-block;
+      background: var(--pink);
+      border: 2px solid var(--navy);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-weight: 900;
+      font-size: 12px;
+    }
+
+    .quote {
+      text-align: center;
+      background: var(--ivory);
+      padding: 40px 10%;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.8;
+    }
+
+    .quote span {
+      color: #5798c1;
+    }
+
+    footer {
+      background: var(--navy);
+      color: white;
+      padding: 25px 7%;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      font-size: 13px;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 45px;
+      }
+
+      .pixel-card {
+        margin-top: 15px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        gap: 12px;
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .topbar {
+        justify-content: center;
+      }
+
+      .nav {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .hero {
+        padding-left: 5%;
+        padding-right: 5%;
+      }
+
+      section {
+        padding: 40px 5%;
+      }
+
+      .brand {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="topbar">
+    <a class="brand" href="#">Math<span>10</span>Nik</a>
+
+    <nav class="nav">
+      <a href="#home">Home</a>
+      <a href="#learning">Learning Hub</a>
+      <a href="#mathlab">Math Lab</a>
+      <a href="#about">About</a>
+      <a class="login-btn" href="#mathlab">Enter Math Lab</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero" id="home">
+      <div>
+        <span class="eyebrow">WELCOME TO YOUR MATH SPACE ✦</span>
+
+        <h1>Math made<br><span>meaningful.</span></h1>
+
+        <p class="hero-text">
+          Welcome to Math10Nik, a learning space where mathematics
+          becomes interactive, creative, and easier to explore.
+          Learn at your own pace, practice your skills, and discover
+          that math is more than just numbers.
+        </p>
+
+        <a href="#learning" class="hero-btn">Explore Learning →</a>
+      </div>
+
+      <div class="pixel-card">
+        <div class="pixel-star">🧮</div>
+        <h3>LEVEL UP YOUR MATH</h3>
+        <p>Small steps. Smart thinking. Great discoveries.</p>
+      </div>
+    </section>
+
+    <section id="learning">
+      <h2 class="section-title">Your Learning Hub</h2>
+      <p class="section-desc">
+        Explore learning spaces designed to help you understand,
+        practice, and grow.
+      </p>
+
+      <div class="grid">
+
+        <article class="card">
+          <div class="card-icon">📖</div>
+          <h3>Lesson Corner</h3>
+          <p>
+            Review lesson notes, key concepts, examples, and
+            mathematical ideas at your own pace.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-icon">✏️</div>
+          <h3>Practice Zone</h3>
+          <p>
+            Strengthen your skills through guided exercises,
+            challenges, and practice questions.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-icon">🎮</div>
+          <h3>Math Lab</h3>
+          <p>
+            Play, solve, explore, and apply your mathematical
+            knowledge through interactive activities.
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="mathlab" id="mathlab">
+      <h2 class="section-title">Welcome to the Math Lab!</h2>
+      <p class="section-desc">
+        Your interactive playground for mathematical thinking.
+      </p>
+
+      <div class="lab-card">
+        <div>
+          <h3>Ready to try a challenge?</h3>
+          <p>
+            Math Lab activities and games will appear here as we build
+            and connect them to your learning platform.
+          </p>
+        </div>
+
+        <span class="coming-soon">ACTIVITIES COMING SOON ✦</span>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2 class="section-title">About Math10Nik</h2>
+      <p class="section-desc">
+        Math10Nik is a digital mathematics learning space built to make
+        learning more engaging through clear lessons, meaningful practice,
+        and interactive mathematical experiences.
+      </p>
+    </section>
+
+    <div class="quote">
+      "You don't have to be fast at math.<br>
+      You just have to keep <span>thinking.</span>"
+    </div>
+
+  </main>
+
+  <footer>
+    <span>© 2026 Math10Nik</span>
+    <span>Made for learning, one problem at a time. 💙</span>
+  </footer>
+
+</body>
+</html>
