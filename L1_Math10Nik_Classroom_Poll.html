@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Think Before You Believe the Claim! | Math10Nik Poll</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Press+Start+2P&display=swap');
+:root{--sky:#cfe9f7;--sky2:#eaf6fc;--pink:#f7dce7;--yellow:#ffe58a;--ink:#35465f;--muted:#62738b;--paper:#fffdf8;--mint:#d9eee2;--line:#a8c6d9;--correct:#bfe5cc}
+*{box-sizing:border-box}
+body{margin:0;padding:14px;background:var(--sky2);color:var(--ink);font-family:"Pixelify Sans",sans-serif;font-size:19px}
+.poll-shell{width:min(900px,100%);margin:0 auto;border:3px solid var(--ink);border-radius:14px;background:var(--sky);padding:14px;box-shadow:5px 5px 0 #a9c8dc;position:relative;overflow:hidden}
+.pixel-dots{position:absolute;right:13px;top:10px;font-family:"Press Start 2P",monospace;font-size:10px;line-height:1.9;color:#dfb94f;letter-spacing:2px;opacity:.9}
+.heading{padding:7px 12px 12px;text-align:center}
+.eyebrow{font-family:"Press Start 2P",monospace;font-size:clamp(8px,1.7vw,11px);color:#5e7892;margin-bottom:12px}
+h1{font-family:"Pixelify Sans",sans-serif;font-weight:700;font-size:clamp(25px,4vw,36px);line-height:1.15;margin:0;text-shadow:1px 1px 0 #fff}
+.scenario{background:var(--paper);border:2px solid var(--line);border-radius:10px;padding:12px 15px;margin:0 0 12px;line-height:1.35}
+.scenario strong{color:#3e6686}
+.question{background:var(--yellow);border:2px solid #d8b84d;border-radius:9px;padding:11px 13px;margin-bottom:12px;font-size:21px;line-height:1.25;font-weight:600}
+.choices{display:grid;gap:8px}
+.choice{display:grid;grid-template-columns:44px 1fr;align-items:center;gap:10px;width:100%;text-align:left;padding:9px 11px;border:2px solid #9fbfd3;border-radius:9px;background:var(--paper);color:var(--ink);cursor:pointer;font:inherit;line-height:1.2;transition:transform .12s ease,background .12s ease,border-color .12s ease}
+.choice:hover{transform:translateY(-1px);background:#f7fbff;border-color:#688ba8}
+.choice:focus-visible,.action:focus-visible{outline:3px solid #607fa3;outline-offset:2px}
+.letter{font-family:"Pixelify Sans",sans-serif;font-size:24px;font-weight:700;background:var(--pink);border:2px solid #d5aabb;border-radius:7px;width:38px;height:34px;display:grid;place-items:center}
+.choice-text{font-size:20px}
+.choice.correct{background:var(--correct);border-color:#6da781}
+.choice.correct .letter{background:#c6e6d0;border-color:#6da781}
+.answer-tag{display:none;font-size:16px;font-weight:700;color:#2e7650;margin-left:7px}
+.choice.correct .answer-tag{display:inline}
+.results{margin-top:12px;background:#fff;border:2px solid var(--line);border-radius:9px;padding:10px 12px}
+.results-head{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:18px;font-weight:700;margin-bottom:8px}
+.vote-total{font-family:"Pixelify Sans",sans-serif;font-size:20px;font-weight:700;background:var(--sky2);border:1px solid #b7d2e3;border-radius:6px;padding:4px 8px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.result-row{display:grid;grid-template-columns:26px 1fr 48px;gap:8px;align-items:center;margin:7px 0}
+.result-letter{font-weight:700;font-size:18px;text-align:center}
+.bar-track{height:17px;background:#edf3f7;border:1px solid #d1e0e9;border-radius:5px;overflow:hidden}
+.bar-fill{height:100%;width:0%;border-radius:4px;transition:width .2s ease}
+.bar-a{background:#f2c9d9}.bar-b{background:#c4e3f4}.bar-c{background:#d2e8cf}.bar-d{background:#f5dc9b}
+.count{font-family:"Pixelify Sans",sans-serif;font-size:20px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+.action{border:2px solid var(--ink);border-radius:8px;background:var(--yellow);color:var(--ink);box-shadow:2px 2px 0 #c5a444;padding:10px 13px;cursor:pointer;font:700 19px "Pixelify Sans",sans-serif}
+.action.secondary{background:var(--paper);box-shadow:2px 2px 0 #b7cbd8}
+.action:active{transform:translate(1px,1px);box-shadow:none}
+.action:disabled{opacity:.75;cursor:default}
+.explanation{display:none;margin-top:10px;background:var(--mint);border:2px solid #9fc8ae;border-radius:9px;padding:11px 13px;line-height:1.35;font-size:19px}
+.explanation.show{display:block}
+.footnote{text-align:center;font-size:14px;color:var(--muted);margin:9px 0 0}
+@media(max-width:600px){body{padding:7px;font-size:17px}.poll-shell{padding:9px;box-shadow:3px 3px 0 #a9c8dc}.heading{padding:4px 5px 9px}.scenario{padding:9px 10px}.question{font-size:19px}.choice{grid-template-columns:36px 1fr;gap:8px;padding:8px}.letter{width:32px;height:31px;font-size:21px}.choice-text{font-size:18px}.results-head{font-size:16px}.result-row{grid-template-columns:22px 1fr 38px;gap:6px}.bar-track{height:15px}.count{font-size:18px}.action{font-size:17px;padding:9px 10px}.pixel-dots{font-size:8px;right:8px;top:7px}}
+</style>
+</head>
+<body>
+<main class="poll-shell" aria-label="Classroom poll activity">
+<div class="pixel-dots" aria-hidden="true">■ ■<br>■ ■ ■</div>
+<header class="heading"><div class="eyebrow">MATH10NIK • CLASSROOM POLL</div><h1>📊 THINK BEFORE YOU BELIEVE THE CLAIM!</h1></header>
+<section class="scenario"><strong>Situation:</strong> A survey asks 10 students from one class about their favorite subject. Nine students say <strong>Mathematics</strong>. A report then claims: <strong>“90% of Grade 10 students prefer Mathematics.”</strong></section>
+<div class="question">Should we immediately believe the claim?</div>
+<section class="choices" aria-label="Poll choices">
+<button class="choice" data-option="A" type="button"><span class="letter">A</span><span class="choice-text">Yes, because 90% is a large percentage.</span></button>
+<button class="choice" data-option="B" type="button"><span class="letter">B</span><span class="choice-text">Yes, because students answered honestly.</span></button>
+<button class="choice" data-option="C" type="button"><span class="letter">C</span><span class="choice-text">Not yet, because we need to check if the sample represents Grade 10.</span></button>
+<button class="choice" data-option="D" type="button"><span class="letter">D</span><span class="choice-text">No, because surveys are always unreliable.</span></button>
+</section>
+<section class="results" aria-live="polite" aria-label="Live poll results">
+<div class="results-head"><span>📈 Live Poll Results</span><span class="vote-total"><span id="total">0</span> votes</span></div>
+<div class="result-row"><span class="result-letter">A</span><div class="bar-track"><div class="bar-fill bar-a" id="barA"></div></div><span class="count" id="countA">0</span></div>
+<div class="result-row"><span class="result-letter">B</span><div class="bar-track"><div class="bar-fill bar-b" id="barB"></div></div><span class="count" id="countB">0</span></div>
+<div class="result-row"><span class="result-letter">C</span><div class="bar-track"><div class="bar-fill bar-c" id="barC"></div></div><span class="count" id="countC">0</span></div>
+<div class="result-row"><span class="result-letter">D</span><div class="bar-track"><div class="bar-fill bar-d" id="barD"></div></div><span class="count" id="countD">0</span></div>
+</section>
+<div class="controls"><button class="action" id="reveal" type="button">🔎 REVEAL ANSWER</button><button class="action secondary" id="reset" type="button">↻ RESET VOTES</button></div>
+<section class="explanation" id="explanation" aria-live="polite"><strong>Correct Answer: C.</strong> The survey only asked 10 students from <strong>one class</strong>. Even if 9 out of 10 chose Mathematics, that sample may not represent all Grade 10 students. Before accepting the claim, check whether the sample is representative of the population.</section>
+<p class="footnote">Tap a choice to add a vote. Votes are counted on this device/browser only.</p>
+</main>
+<script>
+(() => {
+ const votes={A:0,B:0,C:0,D:0}, totalEl=document.getElementById('total');
+ const revealBtn=document.getElementById('reveal'), resetBtn=document.getElementById('reset'), explanation=document.getElementById('explanation');
+ const choices=document.querySelectorAll('.choice'), maxBarVotes=10;
+ function render(){
+  const total=votes.A+votes.B+votes.C+votes.D; totalEl.textContent=total;
+  ['A','B','C','D'].forEach(letter=>{
+   document.getElementById('count'+letter).textContent=votes[letter];
+   document.getElementById('bar'+letter).style.width=Math.min(votes[letter]/maxBarVotes*100,100)+'%';
+  });
+ }
+ choices.forEach(btn=>btn.addEventListener('click',()=>{votes[btn.dataset.option]++;render();}));
+ revealBtn.addEventListener('click',()=>{
+  document.querySelector('[data-option="C"]').classList.add('correct');
+  explanation.classList.add('show');revealBtn.disabled=true;revealBtn.textContent='✓ ANSWER REVEALED';
+ });
+ resetBtn.addEventListener('click',()=>{
+  ['A','B','C','D'].forEach(letter=>votes[letter]=0);
+  document.querySelector('[data-option="C"]').classList.remove('correct');
+  explanation.classList.remove('show');revealBtn.disabled=false;revealBtn.textContent='🔎 REVEAL ANSWER';render();
+ });
+ render();
+})();
+</script>
+</body>
+</html>
