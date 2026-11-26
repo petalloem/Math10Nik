@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Match the Cause! | Math10Nik</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800;900&display=swap');
+:root{--ink:#24445b;--blue:#bfe8ff;--line:#9bd2f0;--pink:#ffd8e8;--yellow:#fff0a8}
+*{box-sizing:border-box}body{margin:0;padding:16px;background:linear-gradient(135deg,#dff4ff,#edf8ff 55%,#e3f3ff);font-family:Nunito,Arial;color:var(--ink)}
+main{max-width:1100px;margin:auto}.top,.panel{background:white;border:3px solid var(--line);border-radius:17px;box-shadow:0 6px 0 #b4dced;padding:18px;margin-bottom:16px}
+.top{background:#b7e3fb;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.brand,h1,h2{font-family:'Press Start 2P',monospace;color:#28658b}.brand{font-size:10px;line-height:1.8}h1{font-size:clamp(15px,2vw,21px);line-height:1.8;margin:0 0 8px}h2{font-size:11px;line-height:1.8;margin:0 0 12px}
+.pill{background:#fff;border:2px solid #8bc8eb;border-radius:99px;padding:7px 12px;font-weight:900}.muted{font-weight:800;color:#66849a}
+.stats{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-weight:900}.timer{font:15px 'Press Start 2P';background:#eaf8ff;padding:10px;border-radius:9px;color:#28658b}
+.bar{height:10px;background:#e6f4fc;border-radius:20px;margin-top:12px;overflow:hidden}.bar span{display:block;height:100%;width:0;background:#65b8e8}
+.columns{display:grid;grid-template-columns:.8fr 1.2fr;gap:18px}.cause,.match{border:2px solid #b9dff3;border-radius:12px;background:#f4fbff;padding:12px;margin-bottom:9px}
+.cause{display:flex;align-items:center;gap:10px;min-height:60px;font-weight:900}.num{background:#c9ecff;border:2px solid #9bd2f0;border-radius:8px;width:32px;height:32px;display:grid;place-items:center;flex:none}
+.matchrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center}.matchrow strong{font-size:14px}
+select{width:100%;padding:10px;border:2px solid #acd7ed;border-radius:9px;background:#fff;color:var(--ink);font:800 13px Nunito}
+button{border:0;border-radius:10px;padding:12px 16px;font:900 14px Nunito;cursor:pointer}.blue{background:#7fc7ee;color:#143e58}.gold{background:#ffe69a;color:#594817}.pink{background:#ffd5e6;color:#733b55}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.feedback{display:none;padding:12px;border-radius:11px;margin-top:13px;font-weight:900}.good{display:block;background:#e9f8ed;border:2px solid #83c99a}.bad{display:block;background:#fff0f3;border:2px solid #f0b5c6}
+.review{display:none;margin-top:14px}.review div{background:#f4fbff;border:1px solid #c8e5f5;border-radius:9px;padding:10px;margin:7px 0;font-weight:800}
+@media(max-width:700px){body{padding:9px}.columns{grid-template-columns:1fr}.matchrow{grid-template-columns:1fr}.panel{padding:13px}.brand{font-size:8px}}
+</style></head>
+<body><main>
+<header class="top"><div class="brand">MATH10NIK<br>DEPRECIATION CONCEPT CHECK</div><div class="pill">🧩 MATCH THE CAUSE!</div></header>
+<section class="panel"><div class="stats"><div><h1>Match the Cause!</h1><div class="muted">Match each depreciation cause with its explanation and real-life example.</div></div><div class="timer" id="timer">02:00</div></div><div class="stats" style="margin-top:14px"><span>4 CAUSES · 8 MATCHES</span><span id="score">Complete matches: 0 / 4</span></div><div class="bar"><span id="progress"></span></div></section>
+<section class="panel columns"><div><h2>① CAUSE CARDS</h2><div id="causes"></div></div><div><h2>② CHOOSE THE MATCHING EXPLANATION AND EXAMPLE</h2><div id="matching"></div></div></section>
+<section class="panel"><div class="muted">Select one explanation and one example for each cause. You can change your choices before checking.</div><div class="actions"><button class="blue" onclick="check()">✓ Check my matches</button><button class="gold" onclick="reveal()">Show answer key</button><button class="pink" onclick="reset()">↻ Try again</button></div><div id="feedback" class="feedback"></div><div class="review" id="review"><h2>ANSWER REVIEW</h2><div id="answers"></div></div></section>
+</main>
+<script>
+const data=[
+{c:"Wear and Tear",e:"Damage or deterioration from use",x:"A frequently used bicycle"},
+{c:"Age",e:"An asset becomes older over time",x:"An older refrigerator"},
+{c:"Obsolescence",e:"Newer technology makes an asset outdated",x:"An old computer"},
+{c:"Physical Deterioration",e:"An asset's condition worsens",x:"A machine exposed to rust"}];
+let exp=[],exm=[],seconds=120,timer;
+const shuffle=a=>{let b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b};
+function init(){
+exp=shuffle(data);exm=shuffle(data);
+document.getElementById('causes').innerHTML=data.map((d,i)=>`<div class="cause"><span class="num">${i+1}</span>${d.c}</div>`).join('');
+document.getElementById('matching').innerHTML=data.map((d,i)=>`<div class="match"><div class="matchrow"><strong>${i+1}. ${d.c}</strong><select id="e${i}"><option value="">Choose explanation…</option>${exp.map(v=>`<option value="${data.indexOf(v)}">${v.e}</option>`).join('')}</select><span class="muted">Example</span><select id="x${i}"><option value="">Choose example…</option>${exm.map(v=>`<option value="${data.indexOf(v)}">${v.x}</option>`).join('')}</select></div></div>`).join('');
+}
+function check(){
+let n=0,rows=[];
+data.forEach((d,i)=>{let a=+document.getElementById('e'+i).value,b=+document.getElementById('x'+i).value,ok=a===i&&b===i;if(ok)n++;rows.push(`<div><b>${d.c}</b><br>Explanation: ${d.e} ${a===i?'✓':'✗'}<br>Example: ${d.x} ${b===i?'✓':'✗'}</div>`)});
+document.getElementById('score').textContent=`Complete matches: ${n} / 4`;document.getElementById('progress').style.width=(n/4*100)+'%';
+let f=document.getElementById('feedback');f.className='feedback '+(n===4?'good':'bad');f.textContent=n===4?'🌟 Excellent! All four causes are correctly matched.':`You got ${n} out of 4 complete matches. Check the review and try again!`;
+document.getElementById('review').style.display='block';document.getElementById('answers').innerHTML=rows.join('');
+}
+function reveal(){document.getElementById('review').style.display='block';document.getElementById('answers').innerHTML=data.map(d=>`<div><b>${d.c}</b><br>Explanation: ${d.e}<br>Example: ${d.x}</div>`).join('');let f=document.getElementById('feedback');f.className='feedback good';f.textContent='Answer key revealed. Discuss why each example fits its depreciation cause.'}
+function reset(){clearInterval(timer);seconds=120;document.getElementById('timer').textContent='02:00';document.getElementById('score').textContent='Complete matches: 0 / 4';document.getElementById('progress').style.width='0';document.getElementById('feedback').className='feedback';document.getElementById('review').style.display='none';init();startTimer()}
+function startTimer(){timer=setInterval(()=>{if(seconds>0)seconds--;let m=Math.floor(seconds/60),s=seconds%60;document.getElementById('timer').textContent=seconds===0?'TIME!':String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');if(seconds===0)clearInterval(timer)},1000)}
+init();startTimer();
+</script></body></html>
